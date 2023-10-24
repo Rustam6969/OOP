@@ -1,5 +1,5 @@
 <?php 
-require "car.php";
+require "Сar.php";
 //require
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $power = $_POST['power'];
     $color = $_POST['color'];
 
-    $car = new Car($wincode, $model, $power, $color);
+    $сar = new сar($wincode, $model, $power, $color);
 
     $car->saveToDatabase($pdo);
 

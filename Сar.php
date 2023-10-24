@@ -1,6 +1,6 @@
 <?php 
 
-class car {
+class Сar {
     private $id;
     private $wincode;
     private $model;
