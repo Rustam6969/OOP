@@ -1,18 +1,37 @@
-<?php 
-require "Сar.php";
-//require
+<?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+require "PdoxInterface.php";
+require "Cache.php";
+require "Pdox.php";
+require "DB.php";
+require "Car.php";
+
+use Car\Car;
+
+$car = new Car();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' and !empty('POST')) {
     $wincode = $_POST['wincode'];
     $model = $_POST['model'];
     $power = $_POST['power'];
     $color = $_POST['color'];
-
-    $сar = new сar($wincode, $model, $power, $color);
-
-    $car->saveToDatabase($pdo);
-
+    
+//    [
+//        'host'        => 'localhost',
+//        'driver'    => 'mysql',
+//        'database'    => 'car',
+//        'username'    => 'root',
+//        'password'    => 'Mamapapa1809',
+//        'charset'    => 'utf8',
+//        'collation'    => 'utf8_general_ci',
+//        'prefix'     => ''
+//    ]
+    
+	
+    $car->setInfo($wincode, $model, $power, $color);
 }
+
+$carList = $car->getAllCars();
 
 ?>
 
@@ -25,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>Добавить авто</h1>
-    <from mothod="post" actioon="">
+    <form action="" method="post">
         <label>ВинКод:</label>
         <input type="text" name="wincode" required><br>
 
@@ -39,6 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="color" required><br>
 
         <input type="submit" value="Сохранить">
-    </from>
+    </form>
+
+<div class="car-list">
+	<?php foreach ($carList as $item): ?>
+	<div class="item">
+        <h2><?= $item->wincode; ?></h2>
+        <p><?= $item->model; ?></p>
+	</div>
+	<?php endforeach; ?>
+</div>
 </body>
 </html>
